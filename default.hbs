@@ -83,14 +83,16 @@
             <section class="copyright"><a href="{{@site.url}}">{{@site.title}}</a> &copy; {{date format="YYYY"}}</section>
             <div class="site-footer-center">
                 <div class="site-footer-social-links">
-                    {{#social_accounts @site}}
-                        <a href="{{href}}" target="_blank" rel="noopener" aria-label="{{name}}">
-                            {{#> (concat "icons/" type)}}
-                                {{!-- Fallback rendered when no per-platform icon partial exists --}}
-                                <span>{{name}}</span>
-                            {{/undefined}}
+                    {{#if @site.facebook}}
+                        <a href="{{@site.facebook}}" target="_blank" rel="noopener" aria-label="Facebook">
+                            {{> "icons/facebook"}}
                         </a>
-                    {{/social_accounts}}
+                    {{/if}}
+                    {{#if @site.twitter}}
+                        <a href="{{@site.twitter}}" target="_blank" rel="noopener" aria-label="X (Twitter)">
+                            {{> "icons/x"}}
+                        </a>
+                    {{/if}}
                 </div>
                 <nav class="site-footer-nav">
                     {{navigation type="secondary"}}
