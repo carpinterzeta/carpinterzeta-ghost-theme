@@ -4,10 +4,15 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -17,8 +22,12 @@ jobs:
         with:
           node-version: 18
 
+      - name: Validate Theme with GScan
+        run: npx gscan --fatal --check-version=v5 .
+
       - name: Deploy to Ghost
         uses: TryGhost/action-deploy-theme@v1
         with:
           api-url: ${{ secrets.GHOST_URL }}
           api-key: ${{ secrets.GHOST_API }}
+        
